@@ -97,14 +97,14 @@ void main()
 		TIFR1 = 1<<ICF1;		//clear input capture flag
 		TIFR1 = 1<<TOV1;		//clear timer overflow
 
-		while ((TIFR1 & (1 << ICF1)) == 0);    //rising edge hold
+		while ((TIFR1 & (1 << ICF1)) == 0);    //Wait until rising edge is seen
 		TCNT1 = 0;            // clear timer 1 counter again
 		TCCR1B = 0x01;        //falling edge capture
 		TIFR1 = 1<<ICF1;        //clear input capture 
 		TIFR1 = 1<<TOV1;        //clear overflow flag
 		OFCounter = 0;    // overflow counter cleared and reset
 
-		while ((TIFR1 & (1 << ICF1)) == 0); //falling edge hold
+		while ((TIFR1 & (1 << ICF1)) == 0); //Wwait until falling edge is seen
 		count = ICR1 + (65535 * OFCounter);    //use capture register value for calculation
 		distance = (double)count / (58*16);    //calculate the distance from the result of the caluclation
 
